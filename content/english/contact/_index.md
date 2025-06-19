@@ -1,6 +1,6 @@
 ---
 title: "Lets Contact Us"
 # description
-description: "this is meta description"
+description: "Ev Blogs"
 draft: false
 ---
