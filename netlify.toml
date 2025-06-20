@@ -1,16 +1,8 @@
 [build]
-<<<<<<< HEAD
 publish = "public"
-command = "yarn project-setup && yarn build"
-
-[build.environment]
-HUGO_VERSION = "0.147.8"
-GO_VERSION = "1.20.5"
-HUGO_BASEURL = "https://evblogs.netlify.app/"
-=======
-  publish = "public"
-  command = "hugo"
+command = "hugo"
 
 [context.production.environment]
-  HUGO_VERSION = "0.147.8"
->>>>>>> 23976371a02aadc67f329c561711ca6b0cf76d64
+HUGO_VERSION = "0.147.8"
+HUGO_BASEURL = "https://evblogs.netlify.app/"
+
