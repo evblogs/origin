@@ -9,19 +9,19 @@ draft: false
 # team
 team:
   # team member
-  - name : "Bessie Mccoy"
+  - name : "vignesh Sampathkumar"
     image : "images/team/1.png"
     designation : "Founder & CEO"
   # team member
-  - name : "Juanita Hawkins"
+  - name : "vignesh Sampathkumar"
     image : "images/team/2.png"
     designation : "Founder & CEO"
   # team member
-  - name : "Arlene Bell"
+  - name : "vignesh Sampathkumar"
     image : "images/team/3.png"
     designation : "Founder & CEO"
   # team member
-  - name : "Jorge Russell"
+  - name : "vignesh Sampathkumar"
     image : "images/team/4.png"
     designation : "Founder & CEO"
 ---
