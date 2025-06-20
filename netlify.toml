@@ -1,4 +1,5 @@
 [build]
+<<<<<<< HEAD
 publish = "public"
 command = "yarn project-setup && yarn build"
 
@@ -6,3 +7,10 @@ command = "yarn project-setup && yarn build"
 HUGO_VERSION = "0.147.8"
 GO_VERSION = "1.20.5"
 HUGO_BASEURL = "/"
+=======
+  publish = "public"
+  command = "hugo"
+
+[context.production.environment]
+  HUGO_VERSION = "0.147.8"
+>>>>>>> 23976371a02aadc67f329c561711ca6b0cf76d64
