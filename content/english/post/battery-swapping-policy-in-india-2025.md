@@ -1,15 +1,15 @@
 ---
 title: 'Battery Swapping Policy in India: A Complete Guide to NITI Aayog’s Vision, Business Models, and EV Infrastructure Opportunities (2025)'
-author: HumanFirst AI
-image : "images/post/post-4.png"
+type: "trending" # all type (featured, trending, regular)
+
+image : "images/post/Battery-Swapping-Policy-in-India-A-Complete-Guide-to-NITI-Aayogs-Vision-Business-Models-and-EV-Infrastructure-Opportunities-2025.webp"
 description: "This is meta description"
-type: "regular" # all type (featured, trending, regular)
+
 date: 2025-06-14T11:40:23+00:00
 url: /government-policy-subsidies/battery-swapping-policy-in-india-2025/
-post_views_count:
-  - 500
+
 categories:
-  - 'Government Policy &amp; Subsidies'
+  - ["Government Policy &amp; Subsidies"]
 
 ---
 India’s electric mobility story is fast evolving, and with it comes the growing need for faster, more flexible, and scalable charging solutions. While conventional plug-in EV charging stations are expanding, the Indian government, through NITI Aayog, has introduced a game-changing alternative — **Battery Swapping**.

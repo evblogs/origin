@@ -9,7 +9,7 @@ draft: false
 # Privacy Policy for EVBlogs.in
 
 **Effective Date:** May 26, 2025  
-**Last Updated:**  June 20, 2025
+**Last Updated:**  June 22, 2025
 
 Welcome to **EVBlogs.in** (“we”, “our”, or “us”). Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website [www.evblogs.in](https://www.evblogs.in), including any other media form, media channel, or mobile website related or connected thereto (collectively, the “Site”).
 

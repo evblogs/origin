@@ -1,12 +1,17 @@
 ---
 title: "How to Start EV Business in India | EV Franchise Opportunities 2025"
-date: 2025-06-20T18:00:00+05:30
-image: "images/featured-post/ev-franchise-india-2025.webp"
+date: 2025-06-17T10:00:00+00:00
+# post thumb
+image: "images/post/Different-Types-of-EV-Car-Batteries-Used-in-India.webp"
+# description
 description: "Explore top EV franchise opportunities in India for 2025—from electric vehicle dealerships to charging station setups, battery swapping, and electric scooter businesses. Full investment guide with ROI, government incentives, and real-world case studies."
+# Taxonomies
 categories: ["featured"]
-type: "featured"
+# post type
+type: "trending" # all type (featured, trending, regular)
 draft: false
 ---
+
 
 # How to Start EV Business in India | EV Franchise Opportunities 2025
 

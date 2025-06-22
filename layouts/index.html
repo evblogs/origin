@@ -1,195 +1,263 @@
 {{ define "main" }}
-
-
-
-<!-- trending post -->
-{{- if gt (len (where .Site.RegularPages "Type" "trending")) 0 }}
 <section class="section-sm">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 text-center">
-        <h2 class="section-title">{{ i18n "trending"}}</h2>
-      </div>
 
-      {{ range (where .Site.RegularPages "Type" "trending")}}
-      {{ if .Params.Image }}
-      <div class="col-lg-6 mb-4">
-        <article class="card">
-          <div class="row card-body">
-            <div class="col-lg-5 pr-lg-0 mb-4 mb-lg-0">
-              <img src="{{ .Params.Image | absURL }}" class="card-img" height="300px" width="100%"
-                style="object-fit: cover;" alt="{{ .Title }}">
-            </div>
-            <div class="col-lg-7">
-              <small class="post-category">{{ delimit .Params.categories ", " }}</small>
-              <h4 class="mb-3"><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a></h4>
-              <small class="post-date mb-3">{{ .PublishDate.Format "January 02, 2006"}}</small>
-              <p class="mb-3">{{ .Summary | truncate 150}}</p>
-              <a href="{{ .Permalink }}" class="btn btn-outline-primary">{{ i18n "read_more" }}</a>
-            </div>
-          </div>
-        </article>
-      </div>
-      {{ else }}
-      <div class="col-lg-3 mb-4">
-        <article class="card text-center">
-          <div class="card-body">
-            <small class="post-category">{{ delimit .Params.categories ", " }}</small>
-            <h4 class="mb-3"><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a></h4>
-            <small class="post-date date-style mb-3">{{ .PublishDate.Format "January 02, 2006"}}</small>
-            <p class="mb-3">{{ .Summary | truncate 50}}</p>
-            <a href="{{ .Permalink }}" class="btn btn-outline-primary">{{ i18n "read_more" }}</a>
-          </div>
-        </article>
-      </div>
-      {{ end }}
-      {{ end }}
-    </div>
-  </div>
-</section>
-{{ end }}
-<!-- /trending post -->
-
-<!-- regular post -->
-<section class="section-sm pt-0">
-  <div class="container-fluid">
-    <div class="row">
-      <!-- left sidebar -->
-      {{ $sidebar:= .Site.Params.sidebar }}
-      {{ $layout:= .Site.Params.layout }}
-      {{ if eq $sidebar "left" }}
-      <aside class="col-lg-3 order-2 order-lg-1">
-        {{ partial "sidebar.html" . }}
+      <!-- Left Sidebar Placeholder (optional) -->
+      <aside class="col-lg-3">
+        <h4 class="mb-4 text-danger fw-bold">Regular</h4>
+        <ul class="list-unstyled">
+          {{ range first 8 (where .Site.RegularPages "Type" "regular") }}
+          <li class="mb-3 border-bottom pb-3">
+            <a href="{{ .Permalink }}" class="d-block fw-bold mb-1">{{ .Title }}</a>
+            <small class="text-muted text-uppercase">{{ .PublishDate.Format "Jan 02, 2006" }}</small>
+          </li>
+          {{ end }}
+        </ul>
       </aside>
-      {{ end }}
-      <!-- /left sidebar -->
-      <div
-        class="{{if or (eq $sidebar `left`) (eq $sidebar `right`)}}col-lg-9{{ else }}col-12{{end}} {{if eq $sidebar `left`}}order-1 order-lg-2{{end}} mb-5 mb-lg-0">
-        <div class="row">
-          {{ $paginator := .Paginate (where .Site.RegularPages "Type" "regular") }}
-          {{ range $index,$elements:= $paginator.Pages }}
-          {{ if eq $index 0}}
-          <div class="col-12 mb-4">
-            <article class="card">
-              <div class="card-body row">
-                <div class="col-12 mb-4">
-                  <img src="{{ .Params.Image | absURL }}" class="img-fluid w-100" alt="{{ .Title }}"
-                    style="height: 350px; object-fit: cover;">
-                </div>
-                <div class="col-md-8 mx-auto text-center">
-                  <small class="post-category">{{ delimit .Params.categories ", " }}</small>
-                  <h3 class="mb-3"><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a></h3>
-                  <small class="post-date date-style large">{{ .PublishDate.Format "January 02, 2006"}}</small>
-                  <p class="my-4">{{ .Summary | truncate 150}}</p>
-                  <a href="{{ .Permalink }}" class="btn btn-outline-primary">{{ i18n "read_more" }}</a>
-                </div>
-              </div>
-            </article>
-          </div>
-          {{ else }}
-          <div class="col-sm-6 mb-4">
-            <article class="card">
-              <div class="card-body">
-                {{ with .Params.Image }}
-                <img src="{{ . | absURL }}" class="img-fluid w-100 mb-3" alt="{{ $.Title }}"
-                  style="height: 350px; object-fit: cover;">
-                {{ end }}
-                <small class="post-category mb-2">{{ delimit .Params.categories ", " }}</small>
-                <h3 class="mb-2"><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a></h3>
-                <small class="post-date mb-2">{{ .PublishDate.Format "January 02, 2006"}}</small>
-                <p class="mb-3">{{ .Summary | truncate 150}}</p>
-                <a href="{{ .Permalink }}" class="btn btn-outline-primary">{{ i18n "read_more" }}</a>
-              </div>
-            </article>
-          </div>
-          {{ end }}
-          {{ end }}
-          <div class="col-12">
 
-            <!-- pagination -->
-            {{ $paginator := .Paginator }}
-            <!-- Number of links either side of the current page. -->
-            {{ $adjacent_links := 2 }}
-            <!-- $max_links = ($adjacent_links * 2) + 1 -->
-            {{ $max_links := (add (mul $adjacent_links 2) 1) }}
-            <!-- $lower_limit = $adjacent_links + 1 -->
-            {{ $lower_limit := (add $adjacent_links 1) }}
-            <!-- $upper_limit = $paginator.TotalPages - $adjacent_links -->
-            {{ $upper_limit := (sub $paginator.TotalPages $adjacent_links) }}
-            <!-- If there's more than one page. -->
-            {{ if gt $paginator.TotalPages 1 }}
-            <ul
-              class="pagination {{if or (eq $sidebar `left`) (eq $sidebar `right`)}}{{ else }}justify-content-center{{end}}">
-              <!-- Previous page. -->
-              {{ if $paginator.HasPrev }}
-              <li class="page-item">
-                <a href="{{ $paginator.Prev.URL }}" class="page-link">
-                  &laquo;
-                </a>
-              </li>
+      <!-- Center Content: Featured + Regular -->
+      <div class="col-lg-6">
+        {{ $featured := first 1 (where .Site.RegularPages "Type" "featured") }}
+        {{ range $featured }}
+        <!-- Featured Story -->
+        <article class="mb-4 border-bottom pb-4">
+          <small class="text-danger text-uppercase d-block mb-1">Live</small>
+          <h2 class="fw-bold"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          <p class="text-muted">{{ .Summary | truncate 160 }}</p>
+          {{ with .Params.Image }}
+          <img src="{{ . | absURL }}" class="img-fluid mb-3" alt="{{ $.Title }}"
+            style="height: auto; object-fit: cover;">
+          {{ end }}
+          <small class="text-uppercase">{{ .Params.author }}</small>
+        </article>
+        {{ end }}
+
+        <!-- Grid Posts from 'regular' -->
+        <div class="row">
+          {{ $regular := where .Site.RegularPages "Type" "regular" }}
+          {{ range first 2 $regular }}
+          <div class="col-md-6 mb-4">
+            <article>
+              {{ with .Params.Image }}
+              <img src="{{ . | absURL }}" class="img-fluid w-100 mb-2" style="height: 170px; object-fit: cover;"
+                alt="{{ $.Title }}">
               {{ end }}
-              <!-- Page numbers. -->
-              {{ range $paginator.Pagers }}
-              {{ $.Scratch.Set "page_number_flag" false }}
-              <!-- Advanced page numbers. -->
-              {{ if gt $paginator.TotalPages $max_links }}
-              <!-- Lower limit pages. -->
-              <!-- If the user is on a page which is in the lower limit.  -->
-              {{ if le $paginator.PageNumber $lower_limit }}
-              <!-- If the current loop page is less than max_links. -->
-              {{ if le .PageNumber $max_links }}
-              {{ $.Scratch.Set "page_number_flag" true }}
-              {{ end }}
-              <!-- Upper limit pages. -->
-              <!-- If the user is on a page which is in the upper limit. -->
-              {{ else if ge $paginator.PageNumber $upper_limit }}
-              <!-- If the current loop page is greater than total pages minus $max_links -->
-              {{ if gt .PageNumber (sub $paginator.TotalPages $max_links) }}
-              {{ $.Scratch.Set "page_number_flag" true }}
-              {{ end }}
-              <!-- Middle pages. -->
-              {{ else }}
-              {{ if and ( ge .PageNumber (sub $paginator.PageNumber $adjacent_links) ) ( le .PageNumber (add $paginator.PageNumber $adjacent_links) ) }}
-              {{ $.Scratch.Set "page_number_flag" true }}
-              {{ end }}
-              {{ end }}
-              <!-- Simple page numbers. -->
-              {{ else }}
-              {{ $.Scratch.Set "page_number_flag" true }}
-              {{ end }}
-              <!-- Output page numbers. -->
-              {{ if eq ($.Scratch.Get "page_number_flag") true }}
-              <li class="page-item{{ if eq . $paginator }} page-item active {{ end }}">
-                <a href="{{ .URL }}" class="page-link">
-                  {{ .PageNumber }}
-                </a>
-              </li>
-              {{ end }}
-              {{ end }}
-              <!-- Next page. -->
-              {{ if $paginator.HasNext }}
-              <li class="page-item">
-                <a href="{{ $paginator.Next.URL }}" class="page-link">
-                  &raquo;
-                </a>
-              </li>
-              {{ end }}
-            </ul>
+              <h5 class="mb-1"><a href="{{ .Permalink }}">{{ .Title }}</a></h5>
+              <small class="text-muted">{{ .PublishDate.Format "Jan 02, 2006" }}</small>
+            </article>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- Right Sidebar: Latest News Timeline (from 'trending') -->
+      <aside class="col-lg-3">
+        <h4 class="mb-4 text-danger fw-bold">Trending Now</h4>
+        <ul class="list-unstyled">
+          {{ range first 8 (where .Site.RegularPages "Type" "trending") }}
+          <li class="mb-3 border-bottom pb-3">
+            <a href="{{ .Permalink }}" class="d-block fw-bold mb-1">{{ .Title }}</a>
+            <small class="text-muted text-uppercase">{{ .PublishDate.Format "Jan 02, 2006" }}</small>
+          </li>
+          {{ end }}
+        </ul>
+      </aside>
+
+    </div>
+    <!-- Related/Clustered Stories Section -->
+    <section class="">
+      <h3 class="mb-4 fw-bold text-danger text-center">Trending</h3>
+      <div class="row">
+        {{ range first 6 (where .Site.RegularPages "Type" "trending") }}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="border-bottom h-100 pb-3">
+            {{ with .Params.Image }}
+            <img src="{{ . | absURL }}" class="img-fluid w-100 mb-2" alt="{{ $.Title }}"
+              style="height: 160px; object-fit: cover;">
+            {{ end }}
+            <p class="mb-1 fw-bold"><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+            {{ with .Params.author }}
+            <small class="text-muted text-uppercase">{{ . }}</small>
             {{ end }}
           </div>
         </div>
+        {{ end }}
       </div>
-      <!-- right sidebar -->
-      {{ if eq $sidebar "right" }}
-      <aside class="col-lg-3">
-        {{ partial "sidebar.html" . }}
-      </aside>
+    </section>
+
+    <!-- 3 sections -->
+
+  <div class="row">
+<aside class="col-lg-4">
+  <h4 class="mb-4 text-danger fw-bold">Regular</h4>
+
+  {{ $regularPosts := first 5 (where .Site.RegularPages "Type" "featured") }}
+
+  {{ with index $regularPosts 0 }}
+  <!-- Main large card -->
+  <a href="{{ .Permalink }}" class="text-dark text-decoration-none">
+    <div class="mb-3">
+      {{ with .Params.Image }}
+      <img src="{{ . | absURL }}" alt="{{ $.Title }}" class="img-fluid rounded mb-2 w-100" style="height: 200px; object-fit: cover;">
       {{ end }}
-      <!-- /right sidebar -->
+      <h6 class="fw-bold mb-1">{{ .Title }}</h6>
+    </div>
+  </a>
+  {{ end }}
+
+  <!-- Remaining 4 small posts -->
+  <ul class="list-unstyled">
+    {{ range $index, $post := $regularPosts }}
+      {{ if gt $index 0 }}
+      <li class="d-flex align-items-start mb-3 border-bottom pb-3">
+        {{ with $post.Params.Image }}
+        <img src="{{ . | absURL }}" alt="{{ $post.Title }}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+        {{ end }}
+        <div>
+          <a href="{{ $post.Permalink }}" class="fw-semibold text-dark text-decoration-none">{{ $post.Title }}</a>
+        </div>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+</aside>
+
+
+<aside class="col-lg-4">
+  <h4 class="mb-4 text-danger fw-bold">Regular</h4>
+
+  {{ $regularPosts := after 1 (where .Site.RegularPages "Type" "featured") }}
+
+  {{ with index $regularPosts 0 }}
+  <!-- Main large card -->
+  <a href="{{ .Permalink }}" class="text-dark text-decoration-none">
+    <div class="mb-3">
+      {{ with .Params.Image }}
+      <img src="{{ . | absURL }}" alt="{{ $.Title }}" class="img-fluid rounded mb-2 w-100" style="height: 200px; object-fit: cover;">
+      {{ end }}
+      <h6 class="fw-bold mb-1">{{ .Title }}</h6>
+    </div>
+  </a>
+  {{ end }}
+
+  <!-- Remaining 4 small posts -->
+  <ul class="list-unstyled">
+    {{ range $index, $post := $regularPosts }}
+      {{ if gt $index 0 }}
+      <li class="d-flex align-items-start mb-3 border-bottom pb-3">
+        {{ with $post.Params.Image }}
+        <img src="{{ . | absURL }}" alt="{{ $post.Title }}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+        {{ end }}
+        <div>
+          <a href="{{ $post.Permalink }}" class="fw-semibold text-dark text-decoration-none">{{ $post.Title }}</a>
+        </div>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+</aside>
+<aside class="col-lg-4">
+  <h4 class="mb-4 text-danger fw-bold">Regular</h4>
+
+  {{ $regularPosts := first 5 (where .Site.RegularPages "Type" "regular") }}
+
+  {{ with index $regularPosts 0 }}
+  <!-- Main large card -->
+  <a href="{{ .Permalink }}" class="text-dark text-decoration-none">
+    <div class="mb-3">
+      {{ with .Params.Image }}
+      <img src="{{ . | absURL }}" alt="{{ $.Title }}" class="img-fluid rounded mb-2 w-100" style="height: 200px; object-fit: cover;">
+      {{ end }}
+      <h6 class="fw-bold mb-1">{{ .Title }}</h6>
+    </div>
+  </a>
+  {{ end }}
+
+  <!-- Remaining 4 small posts -->
+  <ul class="list-unstyled">
+    {{ range $index, $post := $regularPosts }}
+      {{ if gt $index 0 }}
+      <li class="d-flex align-items-start mb-3 border-bottom pb-3">
+        {{ with $post.Params.Image }}
+        <img src="{{ . | absURL }}" alt="{{ $post.Title }}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+        {{ end }}
+        <div>
+          <a href="{{ $post.Permalink }}" class="fw-semibold text-dark text-decoration-none">{{ $post.Title }}</a>
+        </div>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+</aside>
+
+
+    </div>
+
+<section class="my-2">
+  <h2 class="fw-bold text-danger text-center mb-4">EV Updates</h2>
+
+  {{ $tabs := slice "Electric Vehicle" "EV Charging Stations" "EV Battery" "Buying Guides" "Government Policy & Subsidies" "Student Projects & DIY EV" }}
+
+  <!-- Nav Tabs -->
+<!-- Tab Headings -->
+<ul class="nav nav-tabs justify-content-center text-center mb-4 border-0" id="evTab" role="tablist">
+  {{ range $i, $cat := $tabs }}
+  <li class="nav-item" role="presentation">
+    <button class="nav-link text-white bg-dark border border-white rounded-2 px-3 p-2 m-2 {{ if eq $i 0 }}active{{ end }}"
+      id="tab-{{ $i }}-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#tab-{{ $i }}"
+      type="button"
+      role="tab"
+      aria-controls="tab-{{ $i }}"
+      aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}">
+      {{ $cat }}
+    </button>
+  </li>
+  {{ end }}
+</ul>
+
+
+
+
+  <!-- Tab Panes -->
+<div class="tab-content" id="evTabContent">
+  {{ range $i, $cat := $tabs }}
+  {{ $posts := first 4 (where $.Site.RegularPages "Params.categories" "intersect" (slice $cat)) }}
+  <div class="tab-pane fade {{ if eq $i 0 }}show active{{ end }}" id="tab-{{ $i }}" role="tabpanel" aria-labelledby="tab-{{ $i }}-tab">
+    <div class="row justify-content-center g-4">
+      {{ range $posts }}
+      <div class="col-md-3">
+        <div class="card h-100 border-0 text-center">
+          {{ with .Params.Image }}
+          <img src="{{ . | absURL }}" class="card-img-top mx-auto d-block" alt="{{ $.Title }}" style="height: 200px; object-fit: cover;">
+          {{ end }}
+          <div class="card-body px-2 py-3">
+            <h6 class="card-title mb-0 text-center">
+              <a href="{{ .Permalink }}" class="text-dark text-decoration-none">{{ .Title }}</a>
+            </h6>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+      {{ if lt (len $posts) 1 }}
+      <div class="col text-center">
+        <p class="text-muted">No articles found in this category.</p>
+      </div>
+      {{ end }}
     </div>
   </div>
+  {{ end }}
+</div>
+
 </section>
-<!-- /regular post -->
+
+
+
+  </div>
+  
+</section>
 
 
 {{ end }}

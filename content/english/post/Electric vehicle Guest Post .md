@@ -1,16 +1,17 @@
 ---
-title: "Electric vehicle Guest Post | Write for us Electric Vehicle (EV)"
+title: "Electric Vehicle Guest Post | Write for Us Electric Vehicle (EV)"
 date: 2020-03-14T15:40:24+06:00
 # post thumb
-image : "images/featured-post/Write for US.webp"
+image: "images/featured-post/Write for US.webp"
 # description
-description: "Electric vehicle Guest Post | Write for us Electric Vehicle (EV)"
+description: "Contribute your EV expertise to EVBlogs.in! Submit guest posts on electric vehicles, charging stations, battery tech, and green mobility for a targeted Indian audience."
 # Taxonomies
-categories: ["featured"]
+categories: ["Trending"]
 # post type
 type: "featured" # all type (featured, trending, regular)
 draft: false
 ---
+
 
 # Electric vehicle Guest Post | Write for us Electric Vehicle (EV)
   
