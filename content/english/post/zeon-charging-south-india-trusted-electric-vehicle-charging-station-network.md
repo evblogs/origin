@@ -575,7 +575,9 @@ So, the next time you&#8217;re on a highway in Tamil Nadu or planning an EV trip
 
 <hr class="wp-block-separator has-alpha-channel-opacity" />
 
-**Ready to explore more about India’s EV journey?**  
+**Ready to explore more about India’s EV journey?** 
+
+we are allow guest post contact us avmedia321@gmail.com
 Check out our detailed guides on:
 
 <ul class="wp-block-list">
